@@ -14,12 +14,17 @@
   </div>
 </template>
 
-<script setup>
+<script setup="props">
 import { getExtendedMonth } from "../utils/dates";
 
+const props = {
+  currDate: Date,
+};
+
 const days = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
-const today = new Date();
-const dates = getExtendedMonth(today).map((d) => new Date(d));
+const dates = getExtendedMonth(new Date(props.currDate())).map(
+  (d) => new Date(d)
+);
 </script>
 
 <style>
