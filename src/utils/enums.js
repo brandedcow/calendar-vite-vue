@@ -1,0 +1,1 @@
+export const calendarViews = ['Day', 'Week', 'Month', 'Year']

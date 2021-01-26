@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col flex-grow">
+  <div class="flex flex-col flex-grow bg-gray-100">
     <div class="flex">
       <div v-for="day in days" :key="day" class="w-1/7 flex justify-center">
         {{ day }}
