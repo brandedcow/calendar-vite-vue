@@ -13,10 +13,11 @@
 </template>
 
 <script>
-import { ref, computed, watch } from "vue";
+import { ref, computed } from "vue";
 import Header from "./components/Header.vue";
 import Calendar from "./components/Calendar.vue";
 import { getExtendedMonth, incMonth, decMonth } from "./utils/dates";
+import store from "./store";
 
 export default {
   components: {
@@ -25,27 +26,22 @@ export default {
   },
   setup() {
     const calendarViewOptions = ["Day", "Week", "Month", "Year"];
-    const currDate = ref(new Date());
+    const currDate = computed(() => store.state.currDate);
     const view = ref(2);
     const dates = computed(() =>
       getExtendedMonth(currDate.value).map((d) => new Date(d))
     );
 
     function inc() {
-      currDate.value = incMonth(currDate.value);
+      store.dispatch("incrementMonth");
     }
-
     function dec() {
-      currDate.value = decMonth(currDate.value);
+      store.dispatch("decrementMonth");
     }
 
     function handleViewSelection(selection) {
       view.value = selection;
     }
-
-    watch(view, () => {
-      console.log("changed to ", view.value);
-    });
 
     return {
       currDate,
