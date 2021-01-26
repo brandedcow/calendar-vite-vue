@@ -8,15 +8,15 @@
       :onViewSelection="handleViewSelection"
       :calendarView="view"
     />
-    <Calendar :dates="dates" />
+    <Calendar :dates="dates" currDate="currDate" />
   </div>
 </template>
 
 <script>
-import { ref, computed } from "vue";
+import { computed } from "vue";
 import Header from "./components/Header.vue";
 import Calendar from "./components/Calendar.vue";
-import { getExtendedMonth, incMonth, decMonth } from "./utils/dates";
+import { getExtendedMonth } from "./utils/dates";
 import store from "./store";
 
 export default {
@@ -27,7 +27,7 @@ export default {
   setup() {
     const calendarViewOptions = ["Day", "Week", "Month", "Year"];
     const currDate = computed(() => store.state.currDate);
-    const view = ref(2);
+    const view = computed(() => store.state.calendarView);
     const dates = computed(() =>
       getExtendedMonth(currDate.value).map((d) => new Date(d))
     );
@@ -40,7 +40,7 @@ export default {
     }
 
     function handleViewSelection(selection) {
-      view.value = selection;
+      store.dispatch("setCalendarView", selection);
     }
 
     return {

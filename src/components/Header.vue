@@ -1,6 +1,11 @@
 <template>
   <div class="flex h-16 items-center justify-around">
     <div>Calendar</div>
+    <button
+      class="h-10 w-20 flex justify-center items-center border-gray-700 rounded border"
+    >
+      Today
+    </button>
     <div>
       <button class="h-10 w-10" @click="dec">&#10094;</button>
       <button class="h-10 w-10" @click="inc">&#10095;</button>
