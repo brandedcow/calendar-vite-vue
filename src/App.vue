@@ -8,29 +8,27 @@
       :onViewSelection="handleViewSelection"
       :calendarView="view"
     />
-    <Calendar :dates="dates" :currDate="currDate" />
+    <router-view :currDate="currDate"></router-view>
+    <!-- <MonthCalendar :currDate="currDate" /> -->
   </div>
 </template>
 
 <script>
 import { computed } from "vue";
 import Header from "./components/Header.vue";
-import Calendar from "./components/Calendar.vue";
-import { getExtendedMonth } from "./utils/dates";
+import MonthCalendar from "./components/MonthCalendar.vue";
 import store from "./store";
+import router from "./router";
 
 export default {
   components: {
     Header,
-    Calendar,
+    MonthCalendar,
   },
   setup() {
     const calendarViewOptions = ["Day", "Week", "Month", "Year"];
     const currDate = computed(() => store.state.currDate);
     const view = computed(() => store.state.calendarView);
-    const dates = computed(() =>
-      getExtendedMonth(store.state.currDate).map((d) => new Date(d))
-    );
 
     function inc() {
       store.dispatch("incrementMonth");
@@ -41,12 +39,12 @@ export default {
 
     function handleViewSelection(selection) {
       store.dispatch("setCalendarView", selection);
+      router.push(`/${calendarViewOptions[selection].toLowerCase()}`);
     }
 
     return {
       currDate,
       view,
-      dates,
       inc,
       dec,
       calendarViewOptions,

@@ -22,29 +22,20 @@
 </template>
 
 <script>
-import { computed } from "vue";
-import { isSameDay } from "date-fns";
-
 export default {
   props: {
     dates: Array,
     currDate: Date,
   },
   setup() {
-    const today = new Date();
     const days = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
-    const isToday = (date) => isSameDay(date, today);
 
     return {
       days,
-      isToday,
     };
   },
 };
 </script>
 
-<style scoped>
-.today {
-  @apply font-bold;
-}
+<style>
 </style>
