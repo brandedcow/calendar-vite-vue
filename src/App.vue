@@ -8,7 +8,7 @@
       :onViewSelection="handleViewSelection"
       :calendarView="view"
     />
-    <Calendar :dates="dates" currDate="currDate" />
+    <Calendar :dates="dates" :currDate="currDate" />
   </div>
 </template>
 
@@ -29,7 +29,7 @@ export default {
     const currDate = computed(() => store.state.currDate);
     const view = computed(() => store.state.calendarView);
     const dates = computed(() =>
-      getExtendedMonth(currDate.value).map((d) => new Date(d))
+      getExtendedMonth(store.state.currDate).map((d) => new Date(d))
     );
 
     function inc() {
