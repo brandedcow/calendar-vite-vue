@@ -22,16 +22,27 @@
 </template>
 
 <script>
+import { computed } from "vue";
+import { isSameDay } from "date-fns";
+import { getWeek } from "../utils/dates";
+
 export default {
   props: {
-    dates: Array,
     currDate: Date,
   },
-  setup() {
+  setup(props) {
+    const today = new Date();
+
     const days = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
+    const isToday = (date) => isSameDay(date, today);
+    const dates = computed(() =>
+      getWeek(props.currDate).map((d) => new Date(d))
+    );
 
     return {
       days,
+      dates,
+      isToday,
     };
   },
 };

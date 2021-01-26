@@ -16,6 +16,13 @@ export function getExtendedMonth(date) {
   return eachDayOfInterval({ start, end })
 }
 
+export function getWeek(date) {
+  return eachDayOfInterval({
+    start: startOfWeek(date),
+    end: endOfWeek(date)
+  })
+}
+
 export function incMonth(date) {
   return addMonths(date, 1)
 }
