@@ -2,9 +2,15 @@ import {
   startOfWeek, 
   endOfWeek, 
   lastDayOfMonth, 
-  eachDayOfInterval, 
+  eachDayOfInterval,
+  addDays,
+  subDays,
+  addWeeks,
+  subWeeks, 
   subMonths, 
-  addMonths 
+  addMonths,
+  addYears,
+  subYears,
 } from 'date-fns'
 
 export function getExtendedMonth(date) {
@@ -23,10 +29,11 @@ export function getWeek(date) {
   })
 }
 
-export function incMonth(date) {
-  return addMonths(date, 1)
-}
-
-export function decMonth(date) {
-  return subMonths(date, 1)
-}
+export const incDay = date => addDays(date, 1)
+export const decDay = date => subDays(date, 1)
+export const incWeek = date => addWeeks(date, 1)
+export const decWeek = date => subWeeks(date, 1)
+export const incMonth = date => addMonths(date, 1)
+export const decMonth = date => subMonths(date, 1)
+export const incYear = date => addYears(date, 1)
+export const decYear = date => subYears(date, 1)

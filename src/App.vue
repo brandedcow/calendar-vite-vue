@@ -30,10 +30,42 @@ export default {
     const view = computed(() => store.state.calendar.calendarView);
 
     function inc() {
-      store.dispatch("calendar/incrementMonth");
+      switch (view.value) {
+        case 0:
+          store.dispatch("calendar/incrementDay");
+          break;
+        case 1:
+          store.dispatch("calendar/incrementWeek");
+          break;
+        case 2:
+          store.dispatch("calendar/incrementMonth");
+          break;
+        case 3:
+          store.dispatch("calendar/incrementYear");
+          break;
+
+        default:
+          break;
+      }
     }
     function dec() {
-      store.dispatch("calendar/decrementMonth");
+      switch (view.value) {
+        case 0:
+          store.dispatch("calendar/decrementDay");
+          break;
+        case 1:
+          store.dispatch("calendar/decrementWeek");
+          break;
+        case 2:
+          store.dispatch("calendar/decrementMonth");
+          break;
+        case 3:
+          store.dispatch("calendar/decrementYear");
+          break;
+
+        default:
+          break;
+      }
     }
 
     function handleViewSelection(selection) {
