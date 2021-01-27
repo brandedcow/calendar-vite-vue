@@ -13,6 +13,7 @@
 </template>
 
 <script>
+import { computed } from "vue";
 import { format } from "date-fns";
 
 export default {
@@ -20,8 +21,8 @@ export default {
     currDate: Date,
   },
   setup(props) {
-    const dayOfWeek = format(props.currDate, "EEE");
-    const date = props.currDate.getDate();
+    const dayOfWeek = computed(() => format(props.currDate, "EEE"));
+    const date = computed(() => props.currDate.getDate());
 
     return {
       date,
