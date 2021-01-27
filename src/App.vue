@@ -27,18 +27,18 @@ export default {
   },
   setup() {
     const calendarViewOptions = ["Day", "Week", "Month", "Year"];
-    const currDate = computed(() => store.state.currDate);
-    const view = computed(() => store.state.calendarView);
+    const currDate = computed(() => store.state.calendar.currDate);
+    const view = computed(() => store.state.calendar.calendarView);
 
     function inc() {
-      store.dispatch("incrementMonth");
+      store.dispatch("calendar/incrementMonth");
     }
     function dec() {
-      store.dispatch("decrementMonth");
+      store.dispatch("calendar/decrementMonth");
     }
 
     function handleViewSelection(selection) {
-      store.dispatch("setCalendarView", selection);
+      store.dispatch("calendar/setCalendarView", selection);
       router.push(`/${calendarViewOptions[selection].toLowerCase()}`);
     }
 

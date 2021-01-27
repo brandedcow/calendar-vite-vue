@@ -1,6 +1,6 @@
 <template>
   <div class="flex h-16 items-center justify-around">
-    <div>Calendar</div>
+    <div>Planner</div>
     <button
       class="h-10 w-20 flex justify-center items-center border-gray-700 rounded border"
       @click="handleTodayClick"
@@ -44,7 +44,7 @@ export default {
   },
   methods: {
     handleTodayClick() {
-      store.dispatch("setToday");
+      store.dispatch("calendar/setToday");
     },
   },
 };
