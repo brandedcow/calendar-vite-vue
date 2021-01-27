@@ -19,6 +19,9 @@ const actions = {
   setToday({commit}) {
     commit('setToday')
   },
+  setDate({ commit }, payload) {
+    commit('setDate', payload)
+  },
   setCalendarView(state, view) {
     state.calendarView = view
   }
@@ -33,6 +36,9 @@ const mutations = {
   },
   setToday(state) {
     state.currDate = new Date()
+  },
+  setDate(state, payload) {
+    state.currDate = new Date(payload)
   },
   setCalendarView({ commit }, payload) {
     commit('setCalendarView', payload)

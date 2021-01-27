@@ -8,8 +8,7 @@
       :onViewSelection="handleViewSelection"
       :calendarView="view"
     />
-    <router-view :currDate="currDate"></router-view>
-    <!-- <MonthCalendar :currDate="currDate" /> -->
+    <router-view :currDate="currDate" :onSetDate="handleSetDate"></router-view>
   </div>
 </template>
 
@@ -42,6 +41,10 @@ export default {
       router.push(`/${calendarViewOptions[selection].toLowerCase()}`);
     }
 
+    function handleSetDate(date) {
+      store.dispatch("calendar/setDate", date);
+    }
+
     return {
       currDate,
       view,
@@ -49,6 +52,7 @@ export default {
       dec,
       calendarViewOptions,
       handleViewSelection,
+      handleSetDate,
     };
   },
 };
