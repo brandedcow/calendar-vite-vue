@@ -22,9 +22,10 @@ const actions = {
   setDate({ commit }, payload) {
     commit('setDate', payload)
   },
-  setCalendarView(state, view) {
-    state.calendarView = view
+  setCalendarView({ commit }, payload) {
+    commit('setCalendarView', payload)
   }
+
 }
 
 const mutations = {
@@ -40,8 +41,8 @@ const mutations = {
   setDate(state, payload) {
     state.currDate = new Date(payload)
   },
-  setCalendarView({ commit }, payload) {
-    commit('setCalendarView', payload)
+  setCalendarView(state, view) {
+    state.calendarView = view
   }
 }
 
