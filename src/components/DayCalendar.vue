@@ -1,14 +1,11 @@
 <template>
-  <div>
+  <div class="flex-grow flex flex-col">
     <div>
       {{ dayOfWeek }}
       {{ date }}
     </div>
-    <input
-      type="text"
-      class="border-gray-700 border rounded"
-      placeholder="Add note or event"
-    />
+    <NoteEventInput class="self-center" />
+    <div class="flex-grow">Notes & Events</div>
   </div>
 </template>
 
@@ -16,7 +13,12 @@
 import { computed } from "vue";
 import { format } from "date-fns";
 
+import NoteEventInput from "./NoteEventInput.vue";
+
 export default {
+  components: {
+    NoteEventInput,
+  },
   props: {
     currDate: Date,
   },
