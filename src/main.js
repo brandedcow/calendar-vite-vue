@@ -3,5 +3,6 @@ import App from './App.vue'
 import './index.css'
 import store from './store'
 import router from './router'
+import './firebase'
 
 createApp(App).use(router).use(store).mount('#app')

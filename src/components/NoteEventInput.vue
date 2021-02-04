@@ -22,7 +22,7 @@
         cols="30"
         placeholder="Add a note or event"
         class="p-2 w-full"
-        :style="{ resize: 'none', maxHeight: '50vh' }"
+        :style="{ resize: 'none', minHeight: '1rem', maxHeight: '50vh' }"
         @input="autoExpand"
       ></textarea>
     </div>

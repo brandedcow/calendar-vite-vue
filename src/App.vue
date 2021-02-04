@@ -1,5 +1,5 @@
 <template>
-  <div class="h-screen w-screen flex flex-col">
+  <div class="fullScreen flex flex-col relative">
     <Header
       :date="currDate"
       :inc="inc"
@@ -7,15 +7,21 @@
       :calendarViewOptions="calendarViewOptions"
       :onViewSelection="handleViewSelection"
       :calendarView="view"
+      :onLoginClick="handleLoginClick"
+      :onLogoutClick="handleLogoutClick"
+      :isLoggedIn="isLoggedIn"
     />
     <router-view :currDate="currDate" :onSetDate="handleSetDate"></router-view>
+    <Modal />
   </div>
 </template>
 
 <script>
+import firebase from "firebase";
 import { computed } from "vue";
 import Header from "./components/Header.vue";
 import MonthCalendar from "./components/MonthCalendar.vue";
+import Modal from "./components/Modal.vue";
 import store from "./store";
 import router from "./router";
 
@@ -23,11 +29,40 @@ export default {
   components: {
     Header,
     MonthCalendar,
+    Modal,
+  },
+  mounted() {
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        store.dispatch("user/setUser", user);
+      } else {
+        store.dispatch("user/setUser", {});
+      }
+    });
+  },
+  methods: {
+    handleLoginClick() {
+      var provider = new firebase.auth.GoogleAuthProvider();
+
+      firebase
+        .auth()
+        .signInWithPopup(provider)
+        .then(() => {})
+        .catch(console.log);
+    },
+    handleLogoutClick() {
+      firebase
+        .auth()
+        .signOut()
+        .then(() => {})
+        .catch(console.log);
+    },
   },
   setup() {
     const calendarViewOptions = ["Day", "Week", "Month", "Year"];
     const currDate = computed(() => store.state.calendar.currDate);
     const view = computed(() => store.state.calendar.calendarView);
+    const isLoggedIn = computed(() => !!!store.state.user.user.uid);
 
     function inc() {
       switch (view.value) {
@@ -80,6 +115,7 @@ export default {
     return {
       currDate,
       view,
+      isLoggedIn,
       inc,
       dec,
       calendarViewOptions,
@@ -90,5 +126,8 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+.fullScreen {
+  @apply w-screen h-screen;
+}
 </style>
