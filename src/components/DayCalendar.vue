@@ -4,7 +4,7 @@
       {{ dayOfWeek }}
       {{ date }}
     </div>
-    <NoteEventInput class="self-center" />
+    <NoteEventInput class="self-center" :onBlur="handleBlurInput" />
     <div class="flex-grow">Notes & Events</div>
   </div>
 </template>
@@ -13,6 +13,7 @@
 import { computed } from "vue";
 import { format } from "date-fns";
 
+import store from "../store";
 import NoteEventInput from "./NoteEventInput.vue";
 
 export default {
@@ -21,6 +22,12 @@ export default {
   },
   props: {
     currDate: Date,
+  },
+  methods: {
+    handleBlurInput(payload) {
+      console.log("blur", payload);
+      store.dispatch("tasks/addItem", payload);
+    },
   },
   setup(props) {
     const dayOfWeek = computed(() => format(props.currDate, "EEE"));

@@ -16,6 +16,8 @@
         class="p-2 w-full"
         type="text"
         placeholder="Title"
+        v-model="title"
+        @input="onInputChange"
       />
       <textarea
         ref="contentInput"
@@ -24,6 +26,7 @@
         class="p-2 w-full"
         :style="{ resize: 'none', minHeight: '1rem', maxHeight: '50vh' }"
         @input="autoExpand"
+        v-model="content"
       ></textarea>
     </div>
   </div>
@@ -33,17 +36,34 @@
 import { ref, watch } from "vue";
 
 export default {
-  setup() {
+  props: {
+    title: String,
+    content: String,
+    onBlur: Function,
+    onInputChange: Function,
+  },
+  data() {
+    return {
+      title: "",
+      content: "",
+    };
+  },
+  setup(props) {
     const titleInput = ref(null);
     const contentInput = ref(null);
     const noteEventInput = ref(null);
     const isExpanded = ref(false);
+    const title = ref("");
+    const content = ref("");
 
     function handleExpandInput() {
       isExpanded.value = true;
     }
 
     function handleShrinkInput() {
+      if (isExpanded.value) {
+        props.onBlur({ title: title.value, content: content.value });
+      }
       isExpanded.value = false;
     }
 
@@ -66,6 +86,8 @@ export default {
       isExpanded,
       handleExpandInput,
       handleShrinkInput,
+      title,
+      content,
     };
   },
   methods: {
