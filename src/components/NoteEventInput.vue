@@ -61,10 +61,12 @@ export default {
     }
 
     function handleShrinkInput() {
-      if (isExpanded.value) {
+      if (isExpanded.value && (title.value !== "" || content.value !== "")) {
         props.onBlur({ title: title.value, content: content.value });
       }
       isExpanded.value = false;
+      title.value = "";
+      content.value = "";
     }
 
     watch(

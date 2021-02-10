@@ -1,4 +1,6 @@
-const state = () => ([])
+const state = () => ({
+  tasks: []
+})
 
 const getters = {
 
@@ -12,8 +14,13 @@ const actions = {
 
 const mutations = {
   addItem(state, payload) {
-    state = [...state, payload]
+    const newItem = {
+      ...payload,
+      id: Date.now(),
+    }
     console.log(state)
+    state.tasks = [...state.tasks, newItem]
+    
   }
 }
 
