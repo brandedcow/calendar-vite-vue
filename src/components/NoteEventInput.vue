@@ -1,5 +1,5 @@
 <template>
-  <div v-click-outside="handleShrinkInput">
+  <div v-clickOutside="handleShrinkInput">
     <div
       tabindex="1"
       v-if="!isExpanded"
@@ -34,6 +34,8 @@
 
 <script>
 import { ref, watch } from "vue";
+
+import { clickOutside } from "../utils/directives/clickOutside";
 
 export default {
   props: {
@@ -110,19 +112,7 @@ export default {
     },
   },
   directives: {
-    "click-outside": {
-      mounted(el, binding) {
-        el.clickOutsideEvent = function (event) {
-          if (!el.contains(event.target)) {
-            binding.value();
-          }
-        };
-        document.body.addEventListener("mousedown", el.clickOutsideEvent);
-      },
-      unmounted(el) {
-        document.body.removeEventListener("mousedown", el.clickOutsideEvent);
-      },
-    },
+    clickOutside,
   },
 };
 </script>

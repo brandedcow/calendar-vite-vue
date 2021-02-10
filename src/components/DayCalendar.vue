@@ -9,6 +9,7 @@
       <Note
         v-for="task in tasks"
         :key="task.id"
+        :id="task.id"
         :title="task.title"
         :content="task.content"
       />

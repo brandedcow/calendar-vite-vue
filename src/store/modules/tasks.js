@@ -9,6 +9,9 @@ const getters = {
 const actions = {
   addItem({ commit }, payload) {
     commit('addItem', payload)
+  },
+  editItem({commit}, payload) {
+    commit('editItem', payload)
   }
 }
 
@@ -18,9 +21,13 @@ const mutations = {
       ...payload,
       id: Date.now(),
     }
-    console.log(state)
     state.tasks = [...state.tasks, newItem]
-    
+  },
+  editItem(state, payload) {
+    const { id, title, content } = payload
+    const index = state.tasks.findIndex(ele => ele.id == id)
+
+    state.tasks[index] = payload
   }
 }
 
