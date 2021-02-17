@@ -17,8 +17,9 @@
 </template>
 
 <script>
-import firebase from "firebase";
 import { computed } from "vue";
+
+import firebase from "../src/firebase";
 import Header from "./components/Header.vue";
 import MonthCalendar from "./components/MonthCalendar.vue";
 import Modal from "./components/Modal.vue";
@@ -35,6 +36,7 @@ export default {
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         store.dispatch("user/setUser", user);
+        store.dispatch("tasks/getItems");
       } else {
         store.dispatch("user/setUser", {});
       }
@@ -47,7 +49,21 @@ export default {
       firebase
         .auth()
         .signInWithPopup(provider)
-        .then(() => {})
+        .then((res) => {
+          const { additionalUserInfo } = res;
+          if (additionalUserInfo.isNewUser) {
+            var db = firebase.firestore();
+
+            db.collection("users")
+              .doc(res.user.uid)
+              .set({ id: res.user.uid })
+              .then((ref) => {
+                console.log("user added to firebase", ref);
+              })
+              .catch(console.log);
+          }
+          console.log(res);
+        })
         .catch(console.log);
     },
     handleLogoutClick() {

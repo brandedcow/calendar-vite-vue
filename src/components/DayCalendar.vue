@@ -35,6 +35,7 @@ export default {
   },
   methods: {
     handleBlurInput(payload) {
+      console.log("user", store.state.user.user);
       store.dispatch("tasks/addItem", {
         user: store.state.user.user.uid,
         ...payload,
