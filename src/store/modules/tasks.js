@@ -70,19 +70,6 @@ const actions = {
 }
 
 const mutations = {
-  addItem(state, payload) {
-    const newItem = {
-      ...payload,
-      id: Date.now(),
-    }
-    state.tasks = [...state.tasks, newItem]
-  },
-  editItem(state, payload) {
-    const { id, title, content } = payload
-    const index = state.tasks.findIndex(ele => ele.id == id)
-
-    state.tasks[index] = payload
-  },
   getItems(state, payload) {
     state.tasks = payload
   }
