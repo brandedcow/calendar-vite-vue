@@ -16,6 +16,9 @@
     <div v-else class="flex flex-col">
       <input type="text" v-model="title" />
       <input type="text" v-model="content" />
+      <div class="functionContainer h-6">
+        <button class="trash icon" @click="handleDeleteClick"></button>
+      </div>
     </div>
   </div>
 </template>
@@ -50,6 +53,9 @@ export default {
     },
     openModal() {
       this.isExpanded = true;
+    },
+    handleDeleteClick() {
+      store.dispatch("tasks/deleteItem", this.id);
     },
   },
   directives: {

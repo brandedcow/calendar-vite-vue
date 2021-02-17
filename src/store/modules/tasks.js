@@ -25,30 +25,39 @@ const actions = {
         ...payload,
         createdAt: firebase.firestore.FieldValue.serverTimestamp()
       })
-      .then(() => {
-        dispatch('getItems')
-      })
+      .then(() => dispatch('getItems'))
       .catch(console.error)
     }
 
     
   },
   editItem({commit, dispatch }, payload) {
-    const user = firebase.auth().currentUser.uid
+    const user = firebase.auth().currentUser
 
     if (user ) {
       db.collection('users')
-        .doc(firebase.auth().currentUser.uid)
+        .doc(user.uid)
         .collection('tasks')
         .doc(payload.id)
         .update({
           ...payload,
         })
-        .then(() => {
-          dispatch('getItems')
-        })
+        .then(() => dispatch('getItems'))
         .catch(console.error)
     }   
+  },
+  deleteItem({ commit, dispatch}, payload) {
+    const user = firebase.auth().currentUser
+
+    if (user) {
+      db.collection('users')
+        .doc(user.uid)
+        .collection('tasks')
+        .doc(payload)
+        .delete()
+        .then(() => dispatch('getItems'))
+        .catch(console.error)
+    }
   },
   getItems({ commit }) {
     const user = firebase.auth().currentUser
