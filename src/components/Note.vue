@@ -13,11 +13,13 @@
         {{ content }}
       </div>
     </div>
-    <div v-else class="flex flex-col">
-      <input type="text" v-model="title" />
-      <input type="text" v-model="content" />
-      <div class="functionContainer h-6">
-        <button class="trash icon" @click="handleDeleteClick"></button>
+    <div v-else class="flex flex-col divide-y divide-gray-300">
+      <div class="flex flex-col pb-2">
+        <input type="text" v-model="title" />
+        <input type="text" v-model="content" />
+      </div>
+      <div class="functionContainer h-9 pt-2">
+        <div class="trash icon" @click="handleDeleteClick"></div>
       </div>
     </div>
   </div>
